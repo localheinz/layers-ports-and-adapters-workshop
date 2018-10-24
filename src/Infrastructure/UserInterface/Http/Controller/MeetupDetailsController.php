@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\UserInterface\Http\Controller;
 
-use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
+use MeetupOrganizing\Domain\Entity\MeetupRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

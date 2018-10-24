@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\Persistence\Filesystem;
 
-use MeetupOrganizing\Domain\Entity\Meetup;
+use MeetupOrganizing\Domain;
 use NaiveSerializer\Serializer;
 
-final class MeetupRepository
+final class MeetupRepository implements Domain\Entity\MeetupRepository
 {
     /**
      * @var string
@@ -19,7 +19,7 @@ final class MeetupRepository
         $this->filePath = $filePath;
     }
 
-    public function add(Meetup $meetup): void
+    public function add(Domain\Entity\Meetup $meetup): void
     {
         $meetups = $this->persistedMeetups();
         $id = \count($meetups) + 1;
@@ -28,7 +28,7 @@ final class MeetupRepository
         \file_put_contents($this->filePath, Serializer::serialize($meetups));
     }
 
-    public function byId(int $id): Meetup
+    public function byId(int $id): Domain\Entity\Meetup
     {
         foreach ($this->persistedMeetups() as $meetup) {
             if ($meetup->id() === $id) {
@@ -39,14 +39,9 @@ final class MeetupRepository
         throw new \RuntimeException('Meetup not found');
     }
 
-    /**
-     * @param \DateTimeImmutable $now
-     *
-     * @return Meetup[]
-     */
     public function upcomingMeetups(\DateTimeImmutable $now): array
     {
-        return \array_values(\array_filter($this->persistedMeetups(), function (Meetup $meetup) use ($now) {
+        return \array_values(\array_filter($this->persistedMeetups(), function (Domain\Entity\Meetup $meetup) use ($now) {
             return $meetup->isUpcoming($now);
         }));
     }
@@ -54,11 +49,11 @@ final class MeetupRepository
     /**
      * @param \DateTimeImmutable $now
      *
-     * @return Meetup[]
+     * @return Domain\Entity\Meetup[]
      */
     public function pastMeetups(\DateTimeImmutable $now): array
     {
-        return \array_values(\array_filter($this->persistedMeetups(), function (Meetup $meetup) use ($now) {
+        return \array_values(\array_filter($this->persistedMeetups(), function (Domain\Entity\Meetup $meetup) use ($now) {
             return !$meetup->isUpcoming($now);
         }));
     }
@@ -74,7 +69,7 @@ final class MeetupRepository
     }
 
     /**
-     * @return Meetup[]
+     * @return Domain\Entity\Meetup[]
      */
     private function persistedMeetups(): array
     {
@@ -88,6 +83,6 @@ final class MeetupRepository
             return [];
         }
 
-        return Serializer::deserialize(Meetup::class . '[]', $rawJson);
+        return Serializer::deserialize(Domain\Entity\Meetup::class . '[]', $rawJson);
     }
 }

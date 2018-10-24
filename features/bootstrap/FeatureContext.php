@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
+use MeetupOrganizing\Domain;
 
 /**
  * Defines application features from the specific context.
@@ -29,8 +29,9 @@ final class FeatureContext implements Context, SnippetAcceptingContext
     {
         $container = require __DIR__ . '/../../app/container.php';
 
-        /** @var MeetupRepository $meetupRepository */
-        $meetupRepository = $container[MeetupRepository::class];
+        /** @var Domain\Entity\MeetupRepository $meetupRepository */
+        $meetupRepository = $container[Domain\Entity\MeetupRepository::class];
+
         $meetupRepository->deleteAll();
     }
 }

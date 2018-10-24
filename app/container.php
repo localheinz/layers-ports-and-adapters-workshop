@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Interop\Container\ContainerInterface;
+use MeetupOrganizing\Domain;
 use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 use MeetupOrganizing\Infrastructure\UserInterface\Console\Command\ScheduleMeetupConsoleHandler;
 use MeetupOrganizing\Infrastructure\UserInterface\Http\Controller\ListMeetupsController;
@@ -91,7 +92,7 @@ $container[UrlHelper::class] = function (ContainerInterface $container) {
 /*
  * Persistence
  */
-$container[MeetupRepository::class] = function () {
+$container[Domain\Entity\MeetupRepository::class] = function () {
     return new MeetupRepository(__DIR__ . '/../var/meetups.txt');
 };
 
@@ -102,18 +103,18 @@ $container[ScheduleMeetupController::class] = function (ContainerInterface $cont
     return new ScheduleMeetupController(
         $container->get(TemplateRendererInterface::class),
         $container->get(RouterInterface::class),
-        $container->get(MeetupRepository::class)
+        $container->get(Domain\Entity\MeetupRepository::class)
     );
 };
 $container[ListMeetupsController::class] = function (ContainerInterface $container) {
     return new ListMeetupsController(
-        $container->get(MeetupRepository::class),
+        $container->get(Domain\Entity\MeetupRepository::class),
         $container->get(TemplateRendererInterface::class)
     );
 };
 $container[MeetupDetailsController::class] = function (ContainerInterface $container) {
     return new MeetupDetailsController(
-        $container->get(MeetupRepository::class),
+        $container->get(Domain\Entity\MeetupRepository::class),
         $container->get(TemplateRendererInterface::class)
     );
 };
@@ -123,7 +124,7 @@ $container[MeetupDetailsController::class] = function (ContainerInterface $conta
  */
 $container[ScheduleMeetupConsoleHandler::class] = function (ContainerInterface $container) {
     return new ScheduleMeetupConsoleHandler(
-        $container->get(MeetupRepository::class)
+        $container->get(Domain\Entity\MeetupRepository::class)
     );
 };
 

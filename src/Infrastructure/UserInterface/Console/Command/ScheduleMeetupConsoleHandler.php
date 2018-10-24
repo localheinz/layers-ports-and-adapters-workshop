@@ -6,9 +6,9 @@ namespace MeetupOrganizing\Infrastructure\UserInterface\Console\Command;
 
 use MeetupOrganizing\Domain\Entity\Description;
 use MeetupOrganizing\Domain\Entity\Meetup;
+use MeetupOrganizing\Domain\Entity\MeetupRepository;
 use MeetupOrganizing\Domain\Entity\Name;
 use MeetupOrganizing\Domain\Entity\ScheduledDate;
-use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\IO\IO;
 
