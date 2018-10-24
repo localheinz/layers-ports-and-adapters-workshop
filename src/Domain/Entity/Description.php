@@ -20,9 +20,10 @@ final class Description
 
     public static function fromString($text): self
     {
+        Assertion::notEmpty($text);
+
         $description = new self();
 
-        Assertion::notEmpty($text);
         $description->text = $text;
 
         return $description;

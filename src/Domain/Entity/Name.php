@@ -20,9 +20,10 @@ final class Name
 
     public static function fromString($text): self
     {
+        Assertion::notEmpty($text);
+
         $name = new self();
 
-        Assertion::notEmpty($text);
         $name->text = $text;
 
         return $name;
