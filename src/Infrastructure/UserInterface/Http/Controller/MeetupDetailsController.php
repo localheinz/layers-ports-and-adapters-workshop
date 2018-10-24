@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Infrastructure\Http\Controller;
+namespace MeetupOrganizing\Infrastructure\UserInterface\Http\Controller;
 
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
+use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

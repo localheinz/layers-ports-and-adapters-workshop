@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Infrastructure\Http\Controller;
+namespace MeetupOrganizing\Infrastructure\UserInterface\Http\Controller;
 
 use MeetupOrganizing\Domain\Entity\Description;
 use MeetupOrganizing\Domain\Entity\Meetup;
 use MeetupOrganizing\Domain\Entity\Name;
 use MeetupOrganizing\Domain\Entity\ScheduledDate;
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
+use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;

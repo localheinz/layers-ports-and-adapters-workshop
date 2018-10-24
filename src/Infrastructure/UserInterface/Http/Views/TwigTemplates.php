@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Infrastructure\Http\Views;
+namespace MeetupOrganizing\Infrastructure\UserInterface\Http\Views;
 
 final class TwigTemplates
 {

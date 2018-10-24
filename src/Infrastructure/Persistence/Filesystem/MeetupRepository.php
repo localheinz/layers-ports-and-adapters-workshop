@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Infrastructure\Filesystem;
+namespace MeetupOrganizing\Infrastructure\Persistence\Filesystem;
 
 use MeetupOrganizing\Domain\Entity\Meetup;
 use NaiveSerializer\Serializer;

@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Interop\Container\ContainerInterface;
-use MeetupOrganizing\Infrastructure\Console\Command\ScheduleMeetupConsoleHandler;
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
-use MeetupOrganizing\Infrastructure\Http\Controller\ListMeetupsController;
-use MeetupOrganizing\Infrastructure\Http\Controller\MeetupDetailsController;
-use MeetupOrganizing\Infrastructure\Http\Controller\ScheduleMeetupController;
-use MeetupOrganizing\Infrastructure\Http\Views\TwigTemplates;
+use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
+use MeetupOrganizing\Infrastructure\UserInterface\Console\Command\ScheduleMeetupConsoleHandler;
+use MeetupOrganizing\Infrastructure\UserInterface\Http\Controller\ListMeetupsController;
+use MeetupOrganizing\Infrastructure\UserInterface\Http\Controller\MeetupDetailsController;
+use MeetupOrganizing\Infrastructure\UserInterface\Http\Controller\ScheduleMeetupController;
+use MeetupOrganizing\Infrastructure\UserInterface\Http\Views\TwigTemplates;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Debug\Debug;

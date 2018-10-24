@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
+use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 
 /**
  * Defines application features from the specific context.

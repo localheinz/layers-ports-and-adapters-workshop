@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Test\Infrastructure\Filesystem;
+namespace MeetupOrganizing\Test\Infrastructure\Persistence\Filesystem;
 
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
+use MeetupOrganizing\Infrastructure\Persistence\Filesystem\MeetupRepository;
 use MeetupOrganizing\Test\Domain\Entity\Util\MeetupFactory;
 
 /**
