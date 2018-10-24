@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
-use MeetupOrganizing\Domain\Entity\Description;
-use MeetupOrganizing\Domain\Entity\Meetup;
-use MeetupOrganizing\Domain\Entity\Name;
-use MeetupOrganizing\Domain\Entity\ScheduledDate;
+use MeetupOrganizing\Domain\Model\Description;
+use MeetupOrganizing\Domain\Model\Meetup;
+use MeetupOrganizing\Domain\Model\Name;
+use MeetupOrganizing\Domain\Model\ScheduledDate;
 
 /**
  * @internal

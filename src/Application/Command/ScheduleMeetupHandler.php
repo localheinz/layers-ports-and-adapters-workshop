@@ -9,21 +9,21 @@ use MeetupOrganizing\Domain;
 final class ScheduleMeetupHandler
 {
     /**
-     * @var Domain\Entity\MeetupRepository
+     * @var Domain\Model\MeetupRepository
      */
     private $meetupRepository;
 
-    public function __construct(Domain\Entity\MeetupRepository $meetupRepository)
+    public function __construct(Domain\Model\MeetupRepository $meetupRepository)
     {
         $this->meetupRepository = $meetupRepository;
     }
 
-    public function handle(ScheduleMeetup $command): Domain\Entity\Meetup
+    public function handle(ScheduleMeetup $command): Domain\Model\Meetup
     {
-        $meetup = Domain\Entity\Meetup::schedule(
-            Domain\Entity\Name::fromString($command->name),
-            Domain\Entity\Description::fromString($command->description),
-            Domain\Entity\ScheduledDate::fromPhpDateString($command->scheduledFor)
+        $meetup = Domain\Model\Meetup::schedule(
+            Domain\Model\Name::fromString($command->name),
+            Domain\Model\Description::fromString($command->description),
+            Domain\Model\ScheduledDate::fromPhpDateString($command->scheduledFor)
         );
 
         $this->meetupRepository->add($meetup);

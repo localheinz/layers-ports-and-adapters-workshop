@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Domain\Entity;
+namespace MeetupOrganizing\Domain\Model;
 
 use Assert\Assertion;
 
-final class Description
+final class Name
 {
     /**
      * @var string
@@ -22,10 +22,10 @@ final class Description
     {
         Assertion::notEmpty($text);
 
-        $description = new self();
+        $name = new self();
 
-        $description->text = $text;
+        $name->text = $text;
 
-        return $description;
+        return $name;
     }
 }

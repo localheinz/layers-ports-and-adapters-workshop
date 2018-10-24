@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Domain\Entity;
+namespace MeetupOrganizing\Domain\Model;
 
 use Common\DomainModel\AggregateId;
 
-final class MemberId
+final class MeetupId
 {
     use AggregateId;
 }

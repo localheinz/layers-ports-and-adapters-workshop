@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
-use MeetupOrganizing\Domain\Entity\Name;
+use MeetupOrganizing\Domain\Model\Name;
 
 /**
  * @internal

@@ -29,8 +29,8 @@ final class FeatureContext implements Context, SnippetAcceptingContext
     {
         $container = require __DIR__ . '/../../app/container.php';
 
-        /** @var Domain\Entity\MeetupRepository $meetupRepository */
-        $meetupRepository = $container[Domain\Entity\MeetupRepository::class];
+        /** @var Domain\Model\MeetupRepository $meetupRepository */
+        $meetupRepository = $container[Domain\Model\MeetupRepository::class];
 
         $meetupRepository->deleteAll();
     }

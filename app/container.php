@@ -82,7 +82,7 @@ $container[Expressive\Helper\UrlHelper::class] = function (ContainerInterface $c
  * Application: Command Handler
  */
 $container[Application\Command\ScheduleMeetupHandler::class] = function (ContainerInterface $container) {
-    return new Application\Command\ScheduleMeetupHandler($container->get(Domain\Entity\MeetupRepository::class));
+    return new Application\Command\ScheduleMeetupHandler($container->get(Domain\Model\MeetupRepository::class));
 };
 
 /*
@@ -106,14 +106,14 @@ $container[Infrastructure\UserInterface\Http\Controller\ScheduleMeetupController
 
 $container[Infrastructure\UserInterface\Http\Controller\ListMeetupsController::class] = function (ContainerInterface $container) {
     return new Infrastructure\UserInterface\Http\Controller\ListMeetupsController(
-        $container->get(Domain\Entity\MeetupRepository::class),
+        $container->get(Domain\Model\MeetupRepository::class),
         $container->get(Expressive\Template\TemplateRendererInterface::class)
     );
 };
 
 $container[Infrastructure\UserInterface\Http\Controller\MeetupDetailsController::class] = function (ContainerInterface $container) {
     return new Infrastructure\UserInterface\Http\Controller\MeetupDetailsController(
-        $container->get(Domain\Entity\MeetupRepository::class),
+        $container->get(Domain\Model\MeetupRepository::class),
         $container->get(Expressive\Template\TemplateRendererInterface::class)
     );
 };
@@ -121,7 +121,7 @@ $container[Infrastructure\UserInterface\Http\Controller\MeetupDetailsController:
 /*
  * Infrastructure: Persistence
  */
-$container[Domain\Entity\MeetupRepository::class] = function () {
+$container[Domain\Model\MeetupRepository::class] = function () {
     return new Infrastructure\Persistence\Filesystem\MeetupRepository(__DIR__ . '/../var/meetups.txt');
 };
 
