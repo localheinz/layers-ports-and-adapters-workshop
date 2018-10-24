@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace MeetupOrganizing\Entity;
+namespace MeetupOrganizing\Test\Entity;
+
+use MeetupOrganizing\Entity\ScheduledDate;
 
 final class ScheduledDateTest extends \PHPUnit_Framework_TestCase
 {

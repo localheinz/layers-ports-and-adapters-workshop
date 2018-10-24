@@ -1,9 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace MeetupOrganizing\Entity;
+namespace MeetupOrganizing\Test\Entity;
 
-use MeetupOrganizing\Entity\Util\MeetupFactory;
+use MeetupOrganizing\Entity\MeetupRepository;
+use MeetupOrganizing\Test\Entity\Util\MeetupFactory;
 
 final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
 {
