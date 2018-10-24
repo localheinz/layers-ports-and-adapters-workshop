@@ -96,6 +96,13 @@ $container[Domain\Entity\MeetupRepository::class] = function () {
     return new MeetupRepository(__DIR__ . '/../var/meetups.txt');
 };
 
+/**
+ * Application.
+ */
+$container[\MeetupOrganizing\Application\Command\ScheduleMeetupHandler::class] = function (ContainerInterface $container) {
+    return new \MeetupOrganizing\Application\Command\ScheduleMeetupHandler($container->get(Domain\Entity\MeetupRepository::class));
+};
+
 /*
  * Controllers
  */
@@ -103,7 +110,7 @@ $container[ScheduleMeetupController::class] = function (ContainerInterface $cont
     return new ScheduleMeetupController(
         $container->get(TemplateRendererInterface::class),
         $container->get(RouterInterface::class),
-        $container->get(Domain\Entity\MeetupRepository::class)
+        $container->get(\MeetupOrganizing\Application\Command\ScheduleMeetupHandler::class)
     );
 };
 $container[ListMeetupsController::class] = function (ContainerInterface $container) {
@@ -123,9 +130,7 @@ $container[MeetupDetailsController::class] = function (ContainerInterface $conta
  * CLI
  */
 $container[ScheduleMeetupConsoleHandler::class] = function (ContainerInterface $container) {
-    return new ScheduleMeetupConsoleHandler(
-        $container->get(Domain\Entity\MeetupRepository::class)
-    );
+    return new ScheduleMeetupConsoleHandler($container->get(\MeetupOrganizing\Application\Command\ScheduleMeetupHandler::class));
 };
 
 return $container;

@@ -4,34 +4,31 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\UserInterface\Console\Command;
 
-use MeetupOrganizing\Domain\Entity\Description;
-use MeetupOrganizing\Domain\Entity\Meetup;
-use MeetupOrganizing\Domain\Entity\MeetupRepository;
-use MeetupOrganizing\Domain\Entity\Name;
-use MeetupOrganizing\Domain\Entity\ScheduledDate;
+use MeetupOrganizing\Application;
 use Webmozart\Console\Api\Args\Args;
 use Webmozart\Console\Api\IO\IO;
 
 final class ScheduleMeetupConsoleHandler
 {
     /**
-     * @var MeetupRepository
+     * @var Application\Command\ScheduleMeetupHandler
      */
-    private $repository;
+    private $commandHandler;
 
-    public function __construct(MeetupRepository $repository)
+    public function __construct(Application\Command\ScheduleMeetupHandler $commandHandler)
     {
-        $this->repository = $repository;
+        $this->commandHandler = $commandHandler;
     }
 
     public function handle(Args $args, IO $io): int
     {
-        $meetup = Meetup::schedule(
-            Name::fromString($args->getArgument('name')),
-            Description::fromString($args->getArgument('description')),
-            ScheduledDate::fromPhpDateString($args->getArgument('scheduledFor'))
-        );
-        $this->repository->add($meetup);
+        $command = new Application\Command\ScheduleMeetup();
+
+        $command->name = $args->getArgument('name');
+        $command->description = $args->getArgument('description');
+        $command->scheduledFor = $args->getArgument('scheduledFor');
+
+        $this->commandHandler->handle($command);
 
         $io->writeLine('<success>Scheduled the meetup successfully</success>');
 

@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\UserInterface\Http\Controller;
 
-use MeetupOrganizing\Domain\Entity\Description;
-use MeetupOrganizing\Domain\Entity\Meetup;
-use MeetupOrganizing\Domain\Entity\MeetupRepository;
-use MeetupOrganizing\Domain\Entity\Name;
-use MeetupOrganizing\Domain\Entity\ScheduledDate;
+use MeetupOrganizing\Application;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -28,15 +24,18 @@ final class ScheduleMeetupController
     private $router;
 
     /**
-     * @var MeetupRepository
+     * @var Application\Command\ScheduleMeetupHandler
      */
-    private $repository;
+    private $commandHandler;
 
-    public function __construct(TemplateRendererInterface $renderer, RouterInterface $router, MeetupRepository $repository)
-    {
+    public function __construct(
+        TemplateRendererInterface $renderer,
+        RouterInterface $router,
+        Application\Command\ScheduleMeetupHandler $commandHandler
+    ) {
         $this->renderer = $renderer;
         $this->router = $router;
-        $this->repository = $repository;
+        $this->commandHandler = $commandHandler;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
@@ -60,12 +59,13 @@ final class ScheduleMeetupController
             }
 
             if (empty($formErrors)) {
-                $meetup = Meetup::schedule(
-                    Name::fromString($submittedData['name']),
-                    Description::fromString($submittedData['description']),
-                    ScheduledDate::fromPhpDateString($submittedData['scheduledFor'])
-                );
-                $this->repository->add($meetup);
+                $command = new Application\Command\ScheduleMeetup();
+
+                $command->name = $submittedData['name'];
+                $command->description = $submittedData['description'];
+                $command->scheduledFor = $submittedData['scheduledFor'];
+
+                $meetup = $this->commandHandler->handle($command);
 
                 return new RedirectResponse(
                     $this->router->generateUri(
