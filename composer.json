@@ -5,6 +5,8 @@
             "email": "matthiasnoback@gmail.com"
         }
     ],
+    "name": "matthiasnoback/layers-ports-and-adapters-workshop",
+    "description": "Code and assignments for the 'Layered Architecture and Ports & Adapters' workshop module.",
     "require-dev": {
         "behat/behat": "^3.1",
         "phpunit/phpunit": "^5.3",
