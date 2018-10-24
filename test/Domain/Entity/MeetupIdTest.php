@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
+use Localheinz\Test\Util\Helper;
 use MeetupOrganizing\Domain\Model\MeetupId;
 
 /**
@@ -11,17 +12,24 @@ use MeetupOrganizing\Domain\Model\MeetupId;
  */
 final class MeetupIdTest extends \PHPUnit\Framework\TestCase
 {
+    use Helper;
+
     public function testItCanBeConstructedFromAStringAndRevertedBackToIt(): void
     {
-        $id = '7d7fd0b2-0cb5-42ac-b697-3f7bfce24df9';
+        $id = $this->faker()->uuid;
+
         $meetupId = MeetupId::fromString($id);
+
         $this->assertSame($id, (string) $meetupId);
     }
 
     public function testItCanBeComparedToAnotherMeetupId(): void
     {
-        $meetupId1 = MeetupId::fromString('3a021c08-ad15-43aa-aba3-8626fecd39a7');
-        $meetupId2 = MeetupId::fromString('3a021c08-ad15-43aa-aba3-8626fecd39a7');
+        $id = $this->faker()->uuid;
+
+        $meetupId1 = MeetupId::fromString($id);
+        $meetupId2 = MeetupId::fromString($id);
+
         $this->assertTrue($meetupId1->equals($meetupId2));
     }
 }

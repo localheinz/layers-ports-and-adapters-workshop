@@ -19,10 +19,13 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
 
     private $filePath;
 
+    private $meetupFactory;
+
     protected function setUp()
     {
         $this->filePath = \tempnam(\sys_get_temp_dir(), 'meetups');
         $this->repository = new MeetupRepository($this->filePath);
+        $this->meetupFactory = new MeetupFactory();
     }
 
     protected function tearDown()
@@ -32,7 +35,8 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
 
     public function testItPersistsAndRetrievesMeetups(): void
     {
-        $originalMeetup = MeetupFactory::someMeetup();
+        $originalMeetup = $this->meetupFactory->someMeetup();
+
         $this->repository->add($originalMeetup);
 
         $restoredMeetup = $this->repository->byId($originalMeetup->id());
@@ -51,9 +55,9 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
     public function testItListsUpcomingMeetups(): void
     {
         $now = new \DateTimeImmutable();
-        $pastMeetup = MeetupFactory::pastMeetup();
+        $pastMeetup = $this->meetupFactory->pastMeetup();
         $this->repository->add($pastMeetup);
-        $upcomingMeetup = MeetupFactory::upcomingMeetup();
+        $upcomingMeetup = $this->meetupFactory->upcomingMeetup();
         $this->repository->add($upcomingMeetup);
 
         $this->assertEquals(
@@ -67,9 +71,9 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
     public function testItListsPastMeetups(): void
     {
         $now = new \DateTimeImmutable();
-        $pastMeetup = MeetupFactory::pastMeetup();
+        $pastMeetup = $this->meetupFactory->pastMeetup();
         $this->repository->add($pastMeetup);
-        $upcomingMeetup = MeetupFactory::upcomingMeetup();
+        $upcomingMeetup = $this->meetupFactory->upcomingMeetup();
         $this->repository->add($upcomingMeetup);
 
         $this->assertEquals(
@@ -82,7 +86,7 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
 
     public function testItCanDeleteAllMeetups(): void
     {
-        $meetup = MeetupFactory::upcomingMeetup();
+        $meetup = $this->meetupFactory->upcomingMeetup();
         $this->repository->add($meetup);
         $this->assertEquals([$meetup], $this->repository->allMeetups());
 

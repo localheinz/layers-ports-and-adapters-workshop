@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
+use Localheinz\Test\Util\Helper;
 use MeetupOrganizing\Domain\Model\ScheduledDate;
 
 /**
@@ -11,12 +12,16 @@ use MeetupOrganizing\Domain\Model\ScheduledDate;
  */
 final class ScheduledDateTest extends \PHPUnit\Framework\TestCase
 {
+    use Helper;
+
     public function testItNormalizesTheDateToAtomFormat(): void
     {
-        $scheduledDate = ScheduledDate::fromPhpDateString('2017-01-01 20:00');
+        $date = $this->faker()->dateTime->format('Y-m-d H:i:s');
+
+        $scheduledDate = ScheduledDate::fromPhpDateString($date);
 
         $this->assertEquals(
-            new \DateTimeImmutable('2017-01-01 20:00'),
+            new \DateTimeImmutable($date),
             $scheduledDate->toDateTimeImmutable()
         );
     }
@@ -37,10 +42,12 @@ final class ScheduledDateTest extends \PHPUnit\Framework\TestCase
 
     public function testItCanBeCreatedFromAPhpDateTimeImmutable(): void
     {
-        $scheduledDate = ScheduledDate::fromDateTime(new \DateTimeImmutable('2017-01-01 20:00'));
+        $date = $this->faker()->dateTime->format('Y-m-d H:i:s');
+
+        $scheduledDate = ScheduledDate::fromDateTime(new \DateTimeImmutable($date));
 
         $this->assertEquals(
-            new \DateTimeImmutable('2017-01-01 20:00'),
+            new \DateTimeImmutable($date),
             $scheduledDate->toDateTimeImmutable()
         );
     }

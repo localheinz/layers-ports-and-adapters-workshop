@@ -4,37 +4,43 @@ declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity\Util;
 
+use Localheinz\Test\Util\Helper;
 use MeetupOrganizing\Domain\Model\Description;
 use MeetupOrganizing\Domain\Model\Meetup;
 use MeetupOrganizing\Domain\Model\MeetupId;
 use MeetupOrganizing\Domain\Model\Name;
 use MeetupOrganizing\Domain\Model\ScheduledDate;
-use Ramsey\Uuid\Uuid;
 
 class MeetupFactory
 {
-    public static function pastMeetup(): Meetup
+    use Helper;
+
+    public function pastMeetup(): Meetup
     {
+        $faker = $this->faker();
+
         return Meetup::schedule(
-            MeetupId::fromString(Uuid::uuid4()->toString()),
-            Name::fromString('Name'),
-            Description::fromString('Description'),
+            MeetupId::fromString($faker->uuid),
+            Name::fromString($faker->sentence),
+            Description::fromString($faker->sentence),
             ScheduledDate::fromPhpDateString('-5 days')
         );
     }
 
-    public static function upcomingMeetup(): Meetup
+    public function upcomingMeetup(): Meetup
     {
+        $faker = $this->faker();
+
         return Meetup::schedule(
-            MeetupId::fromString(Uuid::uuid4()->toString()),
-            Name::fromString('Name'),
-            Description::fromString('Description'),
+            MeetupId::fromString($faker->uuid),
+            Name::fromString($faker->sentence),
+            Description::fromString($faker->sentence),
             ScheduledDate::fromPhpDateString('+5 days')
         );
     }
 
-    public static function someMeetup(): Meetup
+    public function someMeetup(): Meetup
     {
-        return self::upcomingMeetup();
+        return $this->upcomingMeetup();
     }
 }
