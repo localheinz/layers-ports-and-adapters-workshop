@@ -28,6 +28,27 @@ final class ScheduleMeetupConsoleHandler
         $command->description = $args->getArgument('description');
         $command->scheduledFor = $args->getArgument('scheduledFor');
 
+        $formErrors = $command->validate();
+
+        if (\count($formErrors)) {
+            $io->writeLine('<error>Unable to schedule a meetup as data is not valid</error>');
+            $io->writeLine('');
+
+            foreach ($formErrors as $field => $errorMessages) {
+                foreach ($errorMessages as $errorMessage) {
+                    $io->writeLine(\sprintf(
+                        ' * <info>%s</info>: %s',
+                        $field,
+                        $errorMessage
+                    ));
+                }
+            }
+
+            $io->writeLine('');
+
+            return 1;
+        }
+
         $this->commandHandler->handle($command);
 
         $io->writeLine('<success>Scheduled the meetup successfully</success>');
