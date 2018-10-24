@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MeetupOrganizing\Infrastructure\Persistence\Filesystem;
 
 use MeetupOrganizing\Domain;
+use MeetupOrganizing\Domain\Model\MeetupId;
 use NaiveSerializer\Serializer;
+use Ramsey\Uuid\Uuid;
 
 final class MeetupRepository implements Domain\Model\MeetupRepository
 {
@@ -22,16 +24,15 @@ final class MeetupRepository implements Domain\Model\MeetupRepository
     public function add(Domain\Model\Meetup $meetup): void
     {
         $meetups = $this->persistedMeetups();
-        $id = \count($meetups) + 1;
-        $meetup->setId($id);
         $meetups[] = $meetup;
+
         \file_put_contents($this->filePath, Serializer::serialize($meetups));
     }
 
-    public function byId(int $id): Domain\Model\Meetup
+    public function byId(Domain\Model\MeetupId $id): Domain\Model\Meetup
     {
         foreach ($this->persistedMeetups() as $meetup) {
-            if ($meetup->id() === $id) {
+            if ($meetup->id()->equals($id)) {
                 return $meetup;
             }
         }
@@ -66,6 +67,11 @@ final class MeetupRepository implements Domain\Model\MeetupRepository
     public function deleteAll(): void
     {
         \file_put_contents($this->filePath, '[]');
+    }
+
+    public function nextIdentifier(): MeetupId
+    {
+        return MeetupId::fromString(Uuid::uuid4()->toString());
     }
 
     /**

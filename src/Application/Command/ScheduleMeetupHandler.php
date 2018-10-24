@@ -21,6 +21,7 @@ final class ScheduleMeetupHandler
     public function handle(ScheduleMeetup $command): Domain\Model\Meetup
     {
         $meetup = Domain\Model\Meetup::schedule(
+            $this->meetupRepository->nextIdentifier(),
             Domain\Model\Name::fromString($command->name),
             Domain\Model\Description::fromString($command->description),
             Domain\Model\ScheduledDate::fromPhpDateString($command->scheduledFor)

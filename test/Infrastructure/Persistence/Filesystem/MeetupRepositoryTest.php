@@ -35,8 +35,6 @@ final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
         $originalMeetup = MeetupFactory::someMeetup();
         $this->repository->add($originalMeetup);
 
-        $this->assertGreaterThanOrEqual(1, $originalMeetup->id());
-
         $restoredMeetup = $this->repository->byId($originalMeetup->id());
 
         $this->assertEquals($originalMeetup, $restoredMeetup);

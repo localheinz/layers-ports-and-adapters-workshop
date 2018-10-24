@@ -7,7 +7,7 @@ namespace MeetupOrganizing\Domain\Model;
 final class Meetup
 {
     /**
-     * @var int
+     * @var string
      */
     private $id;
 
@@ -26,9 +26,15 @@ final class Meetup
      */
     private $scheduledFor;
 
-    public static function schedule(Name $name, Description $description, ScheduledDate $scheduledFor): self
-    {
+    public static function schedule(
+        MeetupId $id,
+        Name $name,
+        Description $description,
+        ScheduledDate $scheduledFor
+    ): self {
         $meetup = new self();
+
+        $meetup->id = $id->__toString();
         $meetup->name = $name;
         $meetup->description = $description;
         $meetup->scheduledFor = $scheduledFor;
@@ -36,9 +42,9 @@ final class Meetup
         return $meetup;
     }
 
-    public function id(): int
+    public function id(): MeetupId
     {
-        return $this->id;
+        return MeetupId::fromString($this->id);
     }
 
     public function name(): Name
@@ -59,15 +65,5 @@ final class Meetup
     public function isUpcoming(\DateTimeImmutable $now): bool
     {
         return $this->scheduledFor()->isInTheFuture($now);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @internal Only to be used by MeetupRepository
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 }
