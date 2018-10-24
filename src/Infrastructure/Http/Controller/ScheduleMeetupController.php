@@ -1,13 +1,14 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\Http\Controller;
 
 use MeetupOrganizing\Domain\Entity\Description;
 use MeetupOrganizing\Domain\Entity\Meetup;
-use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 use MeetupOrganizing\Domain\Entity\Name;
 use MeetupOrganizing\Domain\Entity\ScheduledDate;
+use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -43,15 +44,17 @@ final class ScheduleMeetupController
         $formErrors = [];
         $submittedData = [];
 
-        if ($request->getMethod() === 'POST') {
+        if ('POST' === $request->getMethod()) {
             $submittedData = $request->getParsedBody();
 
             if (empty($submittedData['name'])) {
                 $formErrors['name'][] = 'Provide a name';
             }
+
             if (empty($submittedData['description'])) {
                 $formErrors['description'][] = 'Provide a description';
             }
+
             if (empty($submittedData['scheduledFor'])) {
                 $formErrors['scheduledFor'][] = 'Provide a scheduled for date';
             }
@@ -68,7 +71,7 @@ final class ScheduleMeetupController
                     $this->router->generateUri(
                         'meetup_details',
                         [
-                            'id' => $meetup->id()
+                            'id' => $meetup->id(),
                         ]
                     )
                 );
@@ -80,7 +83,7 @@ final class ScheduleMeetupController
                 'schedule-meetup.html.twig',
                 [
                     'submittedData' => $submittedData,
-                    'formErrors' => $formErrors
+                    'formErrors' => $formErrors,
                 ]
             )
         );

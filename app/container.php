@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use Interop\Container\ContainerInterface;
 use MeetupOrganizing\Infrastructure\Console\Command\ScheduleMeetupConsoleHandler;
-use MeetupOrganizing\Infrastructure\Http\Controller\MeetupDetailsController;
 use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 use MeetupOrganizing\Infrastructure\Http\Controller\ListMeetupsController;
+use MeetupOrganizing\Infrastructure\Http\Controller\MeetupDetailsController;
 use MeetupOrganizing\Infrastructure\Http\Controller\ScheduleMeetupController;
 use MeetupOrganizing\Infrastructure\Http\Views\TwigTemplates;
 use Psr\Http\Message\RequestInterface;
@@ -31,33 +33,33 @@ $container['config'] = [
     'templates' => [
         'extension' => 'html.twig',
         'paths' => [
-            TwigTemplates::getPath()
-        ]
+            TwigTemplates::getPath(),
+        ],
     ],
     'twig' => [
         'extensions' => [
-        ]
+        ],
     ],
     'routes' => [
         [
             'name' => 'list_meetups',
             'path' => '/',
             'middleware' => ListMeetupsController::class,
-            'allowed_methods' => ['GET']
+            'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'meetup_details',
             'path' => '/meetup/{id}',
             'middleware' => MeetupDetailsController::class,
-            'allowed_methods' => ['GET']
+            'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'schedule_meetup',
             'path' => '/schedule-meetup',
             'middleware' => ScheduleMeetupController::class,
-            'allowed_methods' => ['GET', 'POST']
-        ]
-    ]
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+    ],
 ];
 
 /*

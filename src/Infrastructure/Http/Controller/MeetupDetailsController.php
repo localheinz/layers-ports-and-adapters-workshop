@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\Http\Controller;
 
@@ -28,10 +29,10 @@ final class MeetupDetailsController
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $out = null): ResponseInterface
     {
-        $meetup = $this->meetupRepository->byId((int)$request->getAttribute('id'));
+        $meetup = $this->meetupRepository->byId((int) $request->getAttribute('id'));
 
         $response->getBody()->write($this->renderer->render('meetup-details.html.twig', [
-            'meetup' => $meetup
+            'meetup' => $meetup,
         ]));
 
         return $response;

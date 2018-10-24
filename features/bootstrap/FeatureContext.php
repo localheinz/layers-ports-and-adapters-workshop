@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 
 /**

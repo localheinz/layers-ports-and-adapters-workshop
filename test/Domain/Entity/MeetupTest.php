@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
@@ -8,12 +9,12 @@ use MeetupOrganizing\Domain\Entity\Meetup;
 use MeetupOrganizing\Domain\Entity\Name;
 use MeetupOrganizing\Domain\Entity\ScheduledDate;
 
-final class MeetupTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class MeetupTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @test
-     */
-    public function it_can_be_scheduled_with_just_a_name_description_and_date(): void
+    public function testItCanBeScheduledWithJustANameDescriptionAndDate(): void
     {
         $name = Name::fromString('Name');
         $description = Description::fromString('Description');
@@ -26,10 +27,7 @@ final class MeetupTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($scheduledFor, $meetup->scheduledFor());
     }
 
-    /**
-     * @test
-     */
-    public function can_determine_whether_or_not_it_is_upcoming(): void
+    public function testCanDetermineWhetherOrNotItIsUpcoming(): void
     {
         $now = new \DateTimeImmutable();
 

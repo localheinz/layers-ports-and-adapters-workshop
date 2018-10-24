@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\Http\Controller;
 
 use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Stratigility\MiddlewareInterface;
@@ -36,7 +36,7 @@ final class ListMeetupsController implements MiddlewareInterface
 
         $response->getBody()->write($this->renderer->render('list-meetups.html.twig', [
             'upcomingMeetups' => $upcomingMeetups,
-            'pastMeetups' => $pastMeetups
+            'pastMeetups' => $pastMeetups,
         ]));
 
         return $response;

@@ -1,26 +1,24 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
 use MeetupOrganizing\Domain\Entity\MeetupId;
 
-final class MeetupIdTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class MeetupIdTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @test
-     */
-    public function it_can_be_constructed_from_a_string_and_reverted_back_to_it(): void
+    public function testItCanBeConstructedFromAStringAndRevertedBackToIt(): void
     {
         $id = '7d7fd0b2-0cb5-42ac-b697-3f7bfce24df9';
         $meetupId = MeetupId::fromString($id);
-        $this->assertSame($id, (string)$meetupId);
+        $this->assertSame($id, (string) $meetupId);
     }
 
-    /**
-     * @test
-     */
-    public function it_can_be_compared_to_another_meetup_id(): void
+    public function testItCanBeComparedToAnotherMeetupId(): void
     {
         $meetupId1 = MeetupId::fromString('3a021c08-ad15-43aa-aba3-8626fecd39a7');
         $meetupId2 = MeetupId::fromString('3a021c08-ad15-43aa-aba3-8626fecd39a7');

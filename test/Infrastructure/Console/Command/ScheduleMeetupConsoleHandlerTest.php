@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Infrastructure\Console\Command;
@@ -8,12 +9,12 @@ use Webmozart\Console\Args\StringArgs;
 use Webmozart\Console\ConsoleApplication;
 use Webmozart\Console\IO\OutputStream\BufferedOutputStream;
 
-final class ScheduleMeetupConsoleHandlerTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class ScheduleMeetupConsoleHandlerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @test
-     */
-    public function it_schedules_a_meetup(): void
+    public function testItSchedulesAMeetup(): void
     {
         $container = require __DIR__ . '/../../../../app/container.php';
 

@@ -1,16 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
 use MeetupOrganizing\Domain\Entity\ScheduledDate;
 
-final class ScheduledDateTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class ScheduledDateTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @test
-     */
-    public function it_normalizes_the_date_to_atom_format(): void
+    public function testItNormalizesTheDateToAtomFormat(): void
     {
         $scheduledDate = ScheduledDate::fromPhpDateString('2017-01-01 20:00');
 
@@ -20,30 +21,21 @@ final class ScheduledDateTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_can_be_created_from_a_php_date_time_string(): void
+    public function testItCanBeCreatedFromAPhpDateTimeString(): void
     {
         $scheduledDate = ScheduledDate::fromPhpDateString('+1 day');
 
         $this->assertTrue($scheduledDate->isInTheFuture(new \DateTimeImmutable('now')));
     }
 
-    /**
-     * @test
-     */
-    public function it_knows_when_a_date_is_in_the_past(): void
+    public function testItKnowsWhenADateIsInThePast(): void
     {
         $scheduledDate = ScheduledDate::fromPhpDateString('-1 day');
 
         $this->assertFalse($scheduledDate->isInTheFuture(new \DateTimeImmutable('now')));
     }
 
-    /**
-     * @test
-     */
-    public function it_can_be_created_from_a_php_date_time_immutable(): void
+    public function testItCanBeCreatedFromAPhpDateTimeImmutable(): void
     {
         $scheduledDate = ScheduledDate::fromDateTime(new \DateTimeImmutable('2017-01-01 20:00'));
 

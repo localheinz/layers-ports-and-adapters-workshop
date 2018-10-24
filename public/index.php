@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Application;

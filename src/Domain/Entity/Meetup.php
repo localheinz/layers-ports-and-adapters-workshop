@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MeetupOrganizing\Domain\Entity;
@@ -25,7 +26,7 @@ final class Meetup
      */
     private $scheduledFor;
 
-    public static function schedule(Name $name, Description $description, ScheduledDate $scheduledFor): Meetup
+    public static function schedule(Name $name, Description $description, ScheduledDate $scheduledFor): self
     {
         $meetup = new self();
         $meetup->name = $name;
@@ -62,6 +63,7 @@ final class Meetup
 
     /**
      * @param int $id
+     *
      * @internal Only to be used by MeetupRepository
      */
     public function setId(int $id): void

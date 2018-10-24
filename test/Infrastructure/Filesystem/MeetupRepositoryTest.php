@@ -1,12 +1,16 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Infrastructure\Filesystem;
 
 use MeetupOrganizing\Infrastructure\Filesystem\MeetupRepository;
 use MeetupOrganizing\Test\Domain\Entity\Util\MeetupFactory;
 
-final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class MeetupRepositoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var MeetupRepository
@@ -17,14 +21,16 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->filePath = tempnam(sys_get_temp_dir(), 'meetups');
+        $this->filePath = \tempnam(\sys_get_temp_dir(), 'meetups');
         $this->repository = new MeetupRepository($this->filePath);
     }
 
-    /**
-     * @test
-     */
-    public function it_persists_and_retrieves_meetups(): void
+    protected function tearDown()
+    {
+        \unlink($this->filePath);
+    }
+
+    public function testItPersistsAndRetrievesMeetups(): void
     {
         $originalMeetup = MeetupFactory::someMeetup();
         $this->repository->add($originalMeetup);
@@ -36,10 +42,7 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($originalMeetup, $restoredMeetup);
     }
 
-    /**
-     * @test
-     */
-    public function its_initial_state_is_valid(): void
+    public function testItsInitialStateIsValid(): void
     {
         $this->assertSame(
             [],
@@ -47,10 +50,7 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_lists_upcoming_meetups(): void
+    public function testItListsUpcomingMeetups(): void
     {
         $now = new \DateTimeImmutable();
         $pastMeetup = MeetupFactory::pastMeetup();
@@ -60,16 +60,13 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                $upcomingMeetup
+                $upcomingMeetup,
             ],
             $this->repository->upcomingMeetups($now)
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_lists_past_meetups(): void
+    public function testItListsPastMeetups(): void
     {
         $now = new \DateTimeImmutable();
         $pastMeetup = MeetupFactory::pastMeetup();
@@ -79,16 +76,13 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                $pastMeetup
+                $pastMeetup,
             ],
             $this->repository->pastMeetups($now)
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_can_delete_all_meetups(): void
+    public function testItCanDeleteAllMeetups(): void
     {
         $meetup = MeetupFactory::upcomingMeetup();
         $this->repository->add($meetup);
@@ -98,10 +92,5 @@ final class MeetupRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([], $this->repository->upcomingMeetups(new \DateTimeImmutable()));
         $this->assertEquals([], $this->repository->pastMeetups(new \DateTimeImmutable()));
-    }
-
-    protected function tearDown()
-    {
-        unlink($this->filePath);
     }
 }

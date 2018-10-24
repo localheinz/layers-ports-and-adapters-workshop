@@ -1,10 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Infrastructure\Console\Command;
 
 use Interop\Container\ContainerInterface;
-use MeetupOrganizing\Infrastructure\Console\Command\ScheduleMeetupConsoleHandler;
 use Webmozart\Console\Api\Args\Format\Argument;
 use Webmozart\Console\Api\Formatter\Style;
 use Webmozart\Console\Config\DefaultApplicationConfig;
@@ -32,13 +32,13 @@ final class MeetupApplicationConfig extends DefaultApplicationConfig
             ->setVersion('1.0.0')
             ->addStyle(Style::tag('success')->fgGreen())
             ->beginCommand('schedule')
-                ->setDescription('Schedule a meetup')
-                ->addArgument('name', Argument::REQUIRED, 'Name')
-                ->addArgument('description', Argument::REQUIRED, 'Description')
-                ->addArgument('scheduledFor', Argument::REQUIRED, 'Scheduled for')
-                ->setHandler(function () {
-                    return $this->container->get(ScheduleMeetupConsoleHandler::class);
-                })
+            ->setDescription('Schedule a meetup')
+            ->addArgument('name', Argument::REQUIRED, 'Name')
+            ->addArgument('description', Argument::REQUIRED, 'Description')
+            ->addArgument('scheduledFor', Argument::REQUIRED, 'Scheduled for')
+            ->setHandler(function () {
+                return $this->container->get(ScheduleMeetupConsoleHandler::class);
+            })
             ->end();
     }
 }

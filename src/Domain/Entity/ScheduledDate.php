@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MeetupOrganizing\Domain\Entity;
 
 final class ScheduledDate
 {
-    const DATE_TIME_FORMAT = \DateTime::ATOM;
+    public const DATE_TIME_FORMAT = \DateTime::ATOM;
 
     /**
      * @var string
@@ -17,7 +18,12 @@ final class ScheduledDate
         $this->dateTime = $dateTime;
     }
 
-    public static function fromPhpDateString(string $phpDateString): ScheduledDate
+    public function __toString(): string
+    {
+        return $this->dateTime;
+    }
+
+    public static function fromPhpDateString(string $phpDateString): self
     {
         try {
             $dateTimeImmutable = new \DateTimeImmutable($phpDateString);
@@ -32,19 +38,14 @@ final class ScheduledDate
         return self::fromDateTime($dateTimeImmutable);
     }
 
-    public static function fromDateTime(\DateTimeImmutable $dateTime): ScheduledDate
+    public static function fromDateTime(\DateTimeImmutable $dateTime): self
     {
         return new self($dateTime->format(self::DATE_TIME_FORMAT));
     }
 
-    public function __toString(): string
-    {
-        return $this->dateTime;
-    }
-
     public function isInTheFuture(\DateTimeImmutable $now): bool
     {
-        return $now < $this->toDateTimeImmutable();
+        return $this->toDateTimeImmutable() > $now;
     }
 
     public function toDateTimeImmutable(): \DateTimeImmutable

@@ -1,26 +1,24 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace MeetupOrganizing\Test\Domain\Entity;
 
 use MeetupOrganizing\Domain\Entity\Name;
 
-final class NameTest extends \PHPUnit_Framework_TestCase
+/**
+ * @internal
+ */
+final class NameTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @test
-     */
-    public function it_wraps_a_string(): void
+    public function testItWrapsAString(): void
     {
         $nameText = 'Non-empty string';
         $name = Name::fromString($nameText);
-        $this->assertEquals($nameText, (string)$name);
+        $this->assertEquals($nameText, (string) $name);
     }
 
-    /**
-     * @test
-     */
-    public function it_should_be_a_non_empty_string(): void
+    public function testItShouldBeANonEmptyString(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         Name::fromString('');
