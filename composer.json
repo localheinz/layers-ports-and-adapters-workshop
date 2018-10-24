@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "MeetupOrganizing\\": "src/MeetupOrganizing"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "": "test/"
+            "MeetupOrganizing\\": "test/MeetupOrganizing"
         }
     }
 }
